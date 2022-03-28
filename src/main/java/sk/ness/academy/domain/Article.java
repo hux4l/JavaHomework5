@@ -1,6 +1,6 @@
 package sk.ness.academy.domain;
 
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -32,6 +32,7 @@ public class Article {
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "article_id")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private Set<Comment> comments = new HashSet<>();
 
   @Column(name = "create_timestamp")

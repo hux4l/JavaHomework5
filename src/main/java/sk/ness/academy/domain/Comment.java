@@ -1,6 +1,7 @@
 package sk.ness.academy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import sk.ness.academy.dto.Author;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,28 +16,20 @@ public class Comment {
     @Column(name = "comment_id")
     private Integer commentId;
 
-    @Column(name = "author", length = 30)
+    @Column(name = "author")
     private String author;
 
     @Column(name = "text", length = 200)
     private String text;
 
     @Column(name = "article_id")
-    private Integer article;
+    private Integer articleId;
 
     @Column(name = "created_timestamp")
     private LocalDate date;
 
     public Comment() {
         this.date = LocalDate.now();
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(final String author) {
-        this.author = author;
     }
 
     public String getText() {
@@ -64,10 +57,18 @@ public class Comment {
     }
 
     public Integer getArticleId() {
-        return article;
+        return articleId;
     }
 
     public void setArticleId(final Integer articleId) {
-        this.article = articleId;
+        this.articleId = articleId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(final String author) {
+        this.author = author;
     }
 }

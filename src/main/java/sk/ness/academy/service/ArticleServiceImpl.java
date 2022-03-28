@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import sk.ness.academy.dao.ArticleDAO;
 import sk.ness.academy.domain.Article;
+import sk.ness.academy.dto.ArticleInfo;
 
 @Service
 @Transactional
@@ -20,6 +21,11 @@ public class ArticleServiceImpl implements ArticleService {
   @Override
   public Article findByID(final Integer articleId) {
 	  return this.articleDAO.findByID(articleId);
+  }
+
+  @Override
+  public List<ArticleInfo> noComments() {
+    return this.articleDAO.noComments();
   }
 
   @Override

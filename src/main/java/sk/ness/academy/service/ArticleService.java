@@ -3,6 +3,7 @@ package sk.ness.academy.service;
 import java.util.List;
 
 import sk.ness.academy.domain.Article;
+import sk.ness.academy.dto.ArticleInfo;
 
 public interface ArticleService {
 
@@ -15,6 +16,9 @@ public interface ArticleService {
      * Returns all available {@link Article}s
      */
     List<Article> findAll();
+
+    // no comments
+    List<ArticleInfo> noComments();
 
     /**
      * Creates new {@link Article}
