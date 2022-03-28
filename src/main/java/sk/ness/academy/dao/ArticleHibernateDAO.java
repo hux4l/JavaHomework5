@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,9 @@ public class ArticleHibernateDAO implements ArticleDAO {
 
   @Override
   public Article findByID(final Integer articleId) {
-    return (Article) this.sessionFactory.getCurrentSession().get(Article.class, articleId);
+    Article result = sessionFactory.getCurrentSession().find(Article.class, articleId);
+    Hibernate.initialize(result.getComments());
+    return result;
   }
 
   @SuppressWarnings("unchecked")
@@ -31,4 +34,8 @@ public class ArticleHibernateDAO implements ArticleDAO {
     this.sessionFactory.getCurrentSession().saveOrUpdate(article);
   }
 
+  @Override
+  public void deleteArticle(final Integer articleId) {
+    this.sessionFactory.getCurrentSession().delete(findByID(articleId));
+  }
 }
