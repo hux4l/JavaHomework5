@@ -10,9 +10,6 @@ import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 
-import sk.ness.academy.domain.Article;
-
-import sk.ness.academy.dto.ArticleInfo;
 import sk.ness.academy.dto.Author;
 import sk.ness.academy.dto.AuthorStats;
 

@@ -28,11 +28,11 @@ public class ArticleHibernateDAO implements ArticleDAO {
 
   @SuppressWarnings("unchecked")
   @Override
-  public List<Article> findAll() {
-    List<Article> result = this.sessionFactory.getCurrentSession().createSQLQuery("select * from articles").addEntity(Article.class).list();
-    List<Article> clone = new ArrayList<>(result);
-    clone.forEach(article -> article.setComments(null));
-    return clone;
+  public List<ArticleInfo> searchArticles(String search) {
+    return (List<ArticleInfo>) this.sessionFactory.getCurrentSession().createQuery("select new sk.ness.academy.dto.ArticleInfo(a.id, a.title, a.text, a.author, a.createTimestamp) from Article as a where a.title like '%" +
+            search + "%' or a.text  like '%" +
+            search + "%' or a.author  like '%" +
+            search + "%'").list();
   }
 
   @SuppressWarnings("unchecked")

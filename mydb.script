@@ -28,7 +28,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 10518
+SET FILES CHECK 16279
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -38,8 +38,8 @@ CREATE SEQUENCE PUBLIC.COMMENT_SEQ AS INTEGER START WITH 1
 CREATE MEMORY TABLE PUBLIC.ARTICLES(ID INTEGER NOT NULL PRIMARY KEY,AUTHOR VARCHAR(250),CREATE_TIMESTAMP TIMESTAMP,TEXT VARCHAR(2000),TITLE VARCHAR(250))
 CREATE MEMORY TABLE PUBLIC.COMMENTS(COMMENT_ID INTEGER NOT NULL PRIMARY KEY,AUTHOR VARCHAR(30),CREATED_TIMESTAMP DATE,TEXT VARCHAR(200),ARTICLE_ID INTEGER,CONSTRAINT FKK4IB6SYDE10DALK7R7XDL0M5P FOREIGN KEY(ARTICLE_ID) REFERENCES PUBLIC.ARTICLES(ID))
 ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 1
-ALTER SEQUENCE PUBLIC.ARTICLE_SEQ RESTART WITH 14
-ALTER SEQUENCE PUBLIC.COMMENT_SEQ RESTART WITH 32
+ALTER SEQUENCE PUBLIC.ARTICLE_SEQ RESTART WITH 26
+ALTER SEQUENCE PUBLIC.COMMENT_SEQ RESTART WITH 42
 SET DATABASE DEFAULT INITIAL SCHEMA PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.CARDINAL_NUMBER TO PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.YES_OR_NO TO PUBLIC
@@ -50,25 +50,22 @@ GRANT DBA TO SA
 SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
-INSERT INTO ARTICLES VALUES(1,'nobody else','2022-03-28 11:13:09.040000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(2,'somebody else','2022-03-27 11:13:09.040000','something else goes here to try','just try it')
-INSERT INTO ARTICLES VALUES(3,'nobody else','2022-03-28 12:29:35.475000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(4,'nobody else','2022-03-28 13:23:38.348000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(5,'nobody else','2022-03-28 14:32:10.434000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(6,'nobody else','2022-03-28 14:32:20.489000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(7,'nobody else','2022-03-28 14:33:49.589000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(8,'nobody else','2022-03-28 14:34:41.031000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(11,'nobody else','2022-03-28 14:43:38.176000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(12,'nobody else','2022-03-28 14:49:11.254000','something else goes here','something else')
-INSERT INTO ARTICLES VALUES(13,'nobody else','2022-03-28 18:46:35.285000','something else goes here','something else')
-INSERT INTO COMMENTS VALUES(21,'not you','2022-03-28','you are sending too some text',11)
-INSERT INTO COMMENTS VALUES(22,'you','2022-03-28','sending text here',11)
-INSERT INTO COMMENTS VALUES(23,'not you','2022-03-28','you are sending too some text',12)
-INSERT INTO COMMENTS VALUES(24,'you','2022-03-28','sending text here',12)
-INSERT INTO COMMENTS VALUES(25,'you','2022-03-28','sending text here',13)
-INSERT INTO COMMENTS VALUES(26,'not you','2022-03-28','you are sending too some text',13)
-INSERT INTO COMMENTS VALUES(27,'what','2022-03-28','some text about something else here too',1)
-INSERT INTO COMMENTS VALUES(28,'what','2022-03-28','some text about something else here too',2)
-INSERT INTO COMMENTS VALUES(29,'what else','2022-03-28','some text about something else here too',2)
-INSERT INTO COMMENTS VALUES(30,'what is','2022-03-28','some text about something else here too',3)
-INSERT INTO COMMENTS VALUES(31,'what is this','2022-03-28','some text about something else here too',4)
+INSERT INTO ARTICLES VALUES(14,'nobody else','2022-03-28 20:56:21.968000','something else goes here','uno')
+INSERT INTO ARTICLES VALUES(15,'somebody','2022-03-28 20:56:55.807000','due things','due')
+INSERT INTO ARTICLES VALUES(16,'tree','2022-03-28 20:57:28.898000','tree pigs','tree')
+INSERT INTO ARTICLES VALUES(17,'vier','2022-03-28 20:57:57.614000','vier bienen','vier')
+INSERT INTO ARTICLES VALUES(18,'vier','2022-03-28 20:59:19.299000','vier bienen','was wills du?')
+INSERT INTO ARTICLES VALUES(19,'funf','2022-03-28 22:19:10.887000','vier bienen','was wills du?')
+INSERT INTO ARTICLES VALUES(23,'Matt Lacey','2022-03-28 22:55:12.905000','After listening to a recent .Net Rocks show about Technical Debt I thought I''d share some tips I have on working with technical debt. I worry if ''Technical debt'' is just a label we put on things so we don''t have to think about them. e.g. ''We know this will create technical debt and we can come back to it at some point in the future.'' This doesn''t require that we do the best to mitigate the consequences of that debt now though.','5 Tips On Working With Technical Debt')
+INSERT INTO ARTICLES VALUES(24,'Ruth Avramovich','2022-03-28 22:55:12.905000','In this series of posts I am covering some of the many ways you can benefit from XpoLog and especially on how to get the most valuable information from your log4j event logs. By running the XpoLog Analytic Search on your log4j data, you can among other things measure your application performance and thread activity, measure code activity with class and method analytics on log4j, build security analysis, and make use of various visualization gadgets for maximum analysis. In this post I will show you how XpoLog can help you find errors in your Java code, which in turn will help you create better quality code. If you want to follow as you read along, you can download our software for free here.','One Small Error in Java Code, One Giant Leap for Java Code Quality')
+INSERT INTO ARTICLES VALUES(25,'Emil Forslund','2022-03-28 22:55:12.905000','One of the bigest features in Java 8 is the ability to stream over collections of objects. By adding the .stream()-method into the Collection interface, every collection in the java language is suddenly expanded with this new ability. Other data structures like the Map-interface, do not implement the method as they are not, strictly speaking, collections. In this article I will show you how Speedment Open Source streams efficiently over standard Java maps, expanding the Stream interface into something called a MapStream! This addition will make it easier to keep your streams concrete and readable even in complex scenarios. Hopefully this will allow you to keep streaming without prematurely collecting the result.','Extending the Stream API to Maps')
+INSERT INTO COMMENTS VALUES(32,'not you','2022-03-28','you are sending too some text',14)
+INSERT INTO COMMENTS VALUES(33,'you','2022-03-28','sending text here',14)
+INSERT INTO COMMENTS VALUES(34,'not prepared','2022-03-28','you are sending uno too some text',15)
+INSERT INTO COMMENTS VALUES(35,'you are','2022-03-28','sending text here',15)
+INSERT INTO COMMENTS VALUES(36,'three here','2022-03-28','sending text here',16)
+INSERT INTO COMMENTS VALUES(37,'here three','2022-03-28','you are sending uno too some text',16)
+INSERT INTO COMMENTS VALUES(38,'biene zwei','2022-03-28','you are sending uno too some text',17)
+INSERT INTO COMMENTS VALUES(39,'biene einz','2022-03-28','sending text here',17)
+INSERT INTO COMMENTS VALUES(40,'biene einz','2022-03-28','sending text here, wirklich nicht',18)
+INSERT INTO COMMENTS VALUES(41,'biene zwei','2022-03-28','mein gott',18)

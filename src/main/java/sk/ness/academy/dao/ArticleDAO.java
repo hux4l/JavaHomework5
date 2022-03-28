@@ -15,7 +15,7 @@ public interface ArticleDAO {
     /**
      * Returns all available {@link Article}s
      */
-    List<Article> findAll();
+    List<ArticleInfo> searchArticles(String search);
 
     // find without comments
     List<ArticleInfo> noComments();

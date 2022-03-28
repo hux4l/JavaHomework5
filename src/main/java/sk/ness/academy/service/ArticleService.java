@@ -15,7 +15,7 @@ public interface ArticleService {
     /**
      * Returns all available {@link Article}s
      */
-    List<Article> findAll();
+    List<ArticleInfo> searchArticles(String search);
 
     // no comments
     List<ArticleInfo> noComments();
