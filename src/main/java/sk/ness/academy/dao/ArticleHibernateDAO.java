@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +29,6 @@ public class ArticleHibernateDAO implements ArticleDAO {
   @SuppressWarnings("unchecked")
   @Override
   public List<Article> findAll() {
-
     List<Article> result = this.sessionFactory.getCurrentSession().createSQLQuery("select * from articles").addEntity(Article.class).list();
     List<Article> clone = new ArrayList<>(result);
     clone.forEach(article -> article.setComments(null));
@@ -40,7 +38,7 @@ public class ArticleHibernateDAO implements ArticleDAO {
   @SuppressWarnings("unchecked")
   @Override
   public List<ArticleInfo> noComments() {
-    Query<ArticleInfo> query = sessionFactory.getCurrentSession().createQuery("select new sk.ness.academy.dto.ArticleInfo(a.id, a.title, a.text, a.author, a.createTimestamp) from sk.ness.academy.domain.Article as a");
+    Query<ArticleInfo> query = sessionFactory.getCurrentSession().createQuery("select new sk.ness.academy.dto.ArticleInfo(a.id, a.title, a.text, a.author, a.createTimestamp) from Article as a");
     return query.list();
   }
 
