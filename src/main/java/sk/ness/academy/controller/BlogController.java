@@ -1,19 +1,19 @@
 package sk.ness.academy.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.server.ResponseStatusException;
 import sk.ness.academy.domain.Article;
 import sk.ness.academy.domain.Comment;
 import sk.ness.academy.dto.ArticleInfo;
 import sk.ness.academy.dto.Author;
 import sk.ness.academy.dto.AuthorStats;
+import sk.ness.academy.exceptions.NotFoundException;
 import sk.ness.academy.service.ArticleService;
 import sk.ness.academy.service.AuthorService;
 import sk.ness.academy.service.CommentService;
@@ -38,12 +38,20 @@ public class BlogController {
 
     @RequestMapping(value = "articles/{articleId}", method = RequestMethod.DELETE)
     public void deleteArticle(@PathVariable Integer articleId) {
-        this.articleService.deleteArticle(articleId);
+        try {
+            this.articleService.deleteArticle(articleId);
+        } catch (NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Article wih id " + articleId + " not found", e);
+        }
     }
 
     @RequestMapping(value = "articles/{articleId}", method = RequestMethod.GET)
     public Article getArticle(@PathVariable final Integer articleId) {
-        return this.articleService.findByID(articleId);
+        try {
+            return this.articleService.findByID(articleId);
+        } catch (NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Article wih id " + articleId + " not found", e);
+        }
     }
 
     @RequestMapping(value = "articles/search/{searchText}", method = RequestMethod.GET)
@@ -52,6 +60,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "articles", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
     public void addArticle(@RequestBody final Article article) {
         article.getComments().forEach(comment -> comment.setArticleId(article.getId()));
         this.articleService.createArticle(article);
@@ -76,6 +85,10 @@ public class BlogController {
 
     @RequestMapping(value = "comments/{commentId}", method = RequestMethod.GET)
     public Comment getComment(@PathVariable final Integer commentId) {
+        Comment comment = this.commentService.findByID(commentId);
+        if (comment == null) {
+            throw new NotFoundException("Comment with id " + commentId + " not found");
+        }
         return this.commentService.findByID(commentId);
     }
 
@@ -86,7 +99,10 @@ public class BlogController {
 
     @RequestMapping(value = "comments/{commentId}", method = RequestMethod.DELETE)
     public void deleteComment(@PathVariable Integer commentId) {
-        this.commentService.deleteComment(commentId);
+        try {
+            this.commentService.deleteComment(commentId);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException("Comment with id " + commentId + " not found");
+        }
     }
-
 }

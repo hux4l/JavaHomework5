@@ -33,19 +33,15 @@ public class ArticleIngester {
       final ArticleService articleService = context.getBean(ArticleService.class);
 
       // Load file with articles and ingest
-      String json = "";
       StringBuilder sb = new StringBuilder();
       try {
 
         Stream<String> stream = Files.lines(Paths.get("articles_to_ingest.txt"));
         stream.forEach(s -> sb.append(s).append("\n"));
 
-        System.out.println(sb);
-
       } catch (IOException e) {
         e.printStackTrace();
       }
-
 
       articleService.ingestArticles(sb.toString());
     }

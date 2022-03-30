@@ -15,7 +15,7 @@ public class CommentHibernateDAO implements CommentDAO {
 
     @Override
     public Comment findByID(final Integer commentId) {
-        return (Comment) this.sessionFactory.getCurrentSession().get(Comment.class, commentId);
+        return this.sessionFactory.getCurrentSession().get(Comment.class, commentId);
     }
 
     @SuppressWarnings("unchecked")

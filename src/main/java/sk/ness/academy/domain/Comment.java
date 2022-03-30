@@ -1,10 +1,8 @@
 package sk.ness.academy.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import sk.ness.academy.dto.Author;
-
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -26,10 +24,11 @@ public class Comment {
     private Integer articleId;
 
     @Column(name = "created_timestamp")
-    private LocalDate date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
     public Comment() {
-        this.date = LocalDate.now();
+        this.date = new Date();
     }
 
     public String getText() {
@@ -40,11 +39,11 @@ public class Comment {
         this.text = text;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(final LocalDate date) {
+    public void setDate(final Date date) {
         this.date = date;
     }
 

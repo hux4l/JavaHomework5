@@ -19,13 +19,11 @@ class BlogControllerTest {
     Comment comment1;
     Comment comment2;
 
-    LocalDate localDate;
     Date date;
 
     @BeforeEach
     void setUp() {
 
-        localDate = LocalDate.now();
         date = new Date();
 
         article = new Article();
@@ -38,7 +36,7 @@ class BlogControllerTest {
         comment1.setCommentId(1);
         comment1.setAuthor("Me");
         comment1.setText("What you are talking about?");
-        comment1.setDate(localDate);
+        comment1.setDate(date);
 
     }
 
