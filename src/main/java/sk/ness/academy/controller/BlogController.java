@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,7 +95,11 @@ public class BlogController {
 
     @RequestMapping(value = "comments", method = RequestMethod.PUT)
     public void addArticle(@RequestBody Comment comment) {
-        this.commentService.createComment(comment);
+        try {
+            this.commentService.createComment(comment);
+        } catch (DataIntegrityViolationException f) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong input parameters", f);
+        }
     }
 
     @RequestMapping(value = "comments/{commentId}", method = RequestMethod.DELETE)
